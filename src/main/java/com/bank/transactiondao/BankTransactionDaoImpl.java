@@ -11,14 +11,14 @@ public class BankTransactionDaoImpl implements BankTransactionDao{
 	Scanner sc = new Scanner(System.in);
 
 //withdraw
-	public int withdraw(long accountNo, int amount) {
+	public int withdraw(long accountNo, int amount,int amt) {
 		int i = 0;
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "capg", "oracle123");
 
-			System.out.println("enter amount to be withdraw");
-			int amt = sc.nextInt();
+//			System.out.println("enter amount to be withdraw");
+//			int amt = sc.nextInt();
 			if (amt > amount) {
 				System.out.println("insufficient balance plz deposit");
 			} else {
@@ -44,13 +44,11 @@ public class BankTransactionDaoImpl implements BankTransactionDao{
 	}
 
 //deposit
-	public int deposit(long accountNo, int amount) {
+	public int deposit(long accountNo, int amount,int amt) {
 		int i = 0;
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "capg", "oracle123");
-			System.out.println("enter amount to be deposit");
-			int amt = sc.nextInt();
 
 			PreparedStatement ps1 = con.prepareStatement("update customer_details set balance=? where account_No=?");
 			ps1.setInt(1, (amount + amt));
@@ -71,15 +69,12 @@ public class BankTransactionDaoImpl implements BankTransactionDao{
 
 	}
 
-//fundtransfer
-	public int fundTransfer(long fromAccountNo,int amount,Long toAccountNo)
+//fundTransfer
+	public int fundTransfer(long fromAccountNo,int amount,long toAccountNo,int amt)
 	{	int i=0;
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
-			Connection con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","capg","oracle123");	
-				System.out.println("enter amount to be transfer");
-				int amt=sc.nextInt();
-				//System.out.println(fromAmount);
+			Connection con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","capg","oracle123");			
 				if(amt>amount)
 				{
 					System.out.println("insufficient balance in your account to transfer");
